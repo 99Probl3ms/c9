@@ -23,7 +23,7 @@
 h1, h2, h3 {
     font-family: 'open sans' , sans serif;
 }
-
+// navbar styles
  .navbar, .home-callout  {
    background: #0F2027;  /* fallback for old browsers */
    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
@@ -48,6 +48,17 @@ h1, h2, h3 {
     font-weight :800;
 }
 
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+.navbar-default .navbar-toggle {
+  border: 2px solid white;
+  &:hover, &:focus {
+    background-color: #2C5364;
+  }
+}
+
+// body styles
 .home-callout {
     color: white ;
     margin-top: -20px;
