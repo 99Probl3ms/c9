@@ -8,6 +8,6 @@ class ApplicationMailer < ActionMailer::Base
     @body = body
     
     
-    mail(from, email, subject: 'Contact Form Message')
+    mail(from: email, subject: 'Contact Form Message')
   end
 end
