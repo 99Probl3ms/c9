@@ -1,24 +1,62 @@
 <div class="home-callout text-center">
-    <h1>Berel's wine cellar</h1>
-    <h3>basement digs</h3>
+  <h1>Berel's wine cellar</h1>
+  <h3>basement digs</h3>
 </div>
+
 <div class="container home-signup-links">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="well">
-              <h2 class="text-center">Basic Plan</h2>
-              <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus nostrum est eum dolorum laborum, ab eaque doloremque et commodi, soluta minima nulla, consectetur earum dicta odio eveniet error at eos.</h4>
-              <%= link_to "basic plan", new_user_registration_path(plan: @basic_plan.id), class: 'btn btn-lg btn-primary btn-block' %>
-            </div>
-        </div>
-        
-        <div class="col-md-6">
-            <div class="well">
-              <h2 class="text-center">Pro Plan</h2>
-              <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus nostrum est eum dolorum laborum, ab eaque doloremque et commodi, soluta minima nulla, consectetur earum dicta odio eveniet error at eos</h4>
-              <%= link_to "Pro plan", new_user_registration_path(plan: @pro_plan.id), class: 'btn btn-lg btn-success btn-block' %>
-            </div>
-        </div>
+  <div class="row">
+
+    <!-- If user is signed in show profile + community links -->
+  <% if user_signed_in? %>
+
+
+    <!-- profile links -->
+    <div class="col-md-6">
+      <div class="well">
+        <h2 class="text-center">Your Profile</h2>
+        <% if current_user.profile %>
+          <%= link_to "Edit your profile", "#", class: 'btn btn-default btn-lg btn-block' %>
+          <%= link_to "View your profile", user_path(id: current_user.id), class: 'btn btn-default btn-lg btn-block' %>
+
+        <% else %>
+
+          <p class="text-center">Create your profile so you can share your information to the community</p>
+          <%= link_to "Create your profile!", new_user_profile_path(user_id: current_user.id), class: 'btn btn-success btn-lg btn-block' %>
+          
+        <% end %>
+
+      </div>
     </div>
-   <%= link_to "Create your profile!", new_user_profile_path(user_id: current_user.id) if user_signed_in? %>
+
+    <!-- community links -->
+    <div class="col-md-6">
+      <div class="well">
+        <h2 class="text-center">The Community</h2>
+        <p>Join the community to meet other developer, entreprenuers and investors</p>
+        <%= link_to "visit the community", "#", class: 'btn btn-default btn-lg btn-block' %>
+      </div>
+    </div>
+
+    <!-- if not, show signup links -->
+  <% else %>
+
+    <div class="col-md-6">
+      <div class="well">
+        <h2 class="text-center">Basic Plan</h2>
+        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus nostrum est eum dolorum laborum, ab eaque doloremque et commodi, soluta minima nulla, consectetur earum dicta odio eveniet error at eos.</h4>
+        <%= link_to "basic plan", new_user_registration_path(plan: @basic_plan.id), class: 'btn btn-lg btn-primary btn-block' %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="well">
+        <h2 class="text-center">Pro Plan</h2>
+        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus nostrum est eum dolorum laborum, ab eaque doloremque et commodi, soluta minima nulla, consectetur earum dicta odio eveniet error at eos</h4>
+        <%= link_to "Pro plan", new_user_registration_path(plan: @pro_plan.id), class: 'btn btn-lg btn-success btn-block' %>
+      </div>
+    </div>
+
+  <% end %>
+
+  </div>
 </div>
