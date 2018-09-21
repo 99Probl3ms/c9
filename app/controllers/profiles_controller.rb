@@ -1,9 +1,11 @@
 class ProfilesController < ApplicationController
   
   
+  before_action :authenticate_user!
+  before_action :only_current_user
+  
   def new
     # render new profile form
-    
     @profile = Profile.new
   end
   # POST to /users/:user_id/profile
@@ -33,7 +35,7 @@ class ProfilesController < ApplicationController
       @user = User.find(params[:user_id])
       @profile = @user.profile
       # if update is successful
-    if @profile.updated_attributes(profile_params)
+    if @profile.update_attributes(profile_params)
       flash[:success] = "Profile updated!"
       # redirect user to their profile page
       redirect_to user_path(id: params[:user_id])
@@ -43,7 +45,11 @@ class ProfilesController < ApplicationController
   end
   
   private
-  def profile_params
-    params.require(:profile).permit(:first_name, :last_name, :avatar, :job_title, :phone_number, :contact_email, :description)
-  end
+    def profile_params
+      params.require(:profile).permit(:first_name, :last_name, :avatar, :job_title, :phone_number, :contact_email, :description)
+    end
+    def only_current_user
+      @user = User.find(params[:user_id])
+      redirect_to(root_url) unless @user == current_user
+    end
 end
