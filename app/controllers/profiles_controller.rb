@@ -21,10 +21,25 @@ class ProfilesController < ApplicationController
   end
   
   
-  # get request to /users/:user_id/profile/edit
+  # GET request to /users/:user_id/profile/edit
   def edit
     @user = User.find(params[:user_id])
     @profile = @user.profile
+  end
+  
+  # PUT request to /users/:user_id/profile/edit
+  def update
+    # retreive user+profile from db
+      @user = User.find(params[:user_id])
+      @profile = @user.profile
+      # if update is successful
+    if @profile.updated_attributes(profile_params)
+      flash[:success] = "Profile updated!"
+      # redirect user to their profile page
+      redirect_to user_path(id: params[:user_id])
+    else
+      render action: edit
+    end
   end
   
   private
